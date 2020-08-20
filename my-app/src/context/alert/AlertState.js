@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react'
 import { AlertContext } from './alertContext'
 import { alertReducer } from './alertReducer'
-import { SHOW_ALERT, HIDE_ALERT } from '../actionTypes'
 
 export const AlertState = ({ children }) => {
 
@@ -14,12 +13,12 @@ export const AlertState = ({ children }) => {
 
     const show = (text, type = 'warning') => {
         dispatch({
-            type: SHOW_ALERT,
+            type: 'SHOW_ALERT',
             payload: { text, type }
         })
     }
 
-    const hide = () => dispatch({ type: HIDE_ALERT })
+    const hide = () => dispatch({ type: 'HIDE_ALERT' })
 
     return (
         <AlertContext.Provider value={{
@@ -27,6 +26,5 @@ export const AlertState = ({ children }) => {
         }}>
             {children}
         </AlertContext.Provider>
-
     )
 }

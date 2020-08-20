@@ -1,14 +1,15 @@
-import { SHOW_LOADER, ADD_NOTE, FETCH_NOTES, REMOVE_NOTE } from "../actionTypes"
-
-const handlers = {
-    [SHOW_LOADER]: state => ({ ...state, loading: true }),
-    [ADD_NOTE]: (state, { payload }) => ({ ...state, notes: [...state.notes, payload] }),
-    [FETCH_NOTES]: (state, { payload }) => ({ ...state, notes: payload, loading: false }),
-    [REMOVE_NOTE]: (state, { payload }) => ({ ...state, notes: state.notes.filter(note => note.id !== payload) }),
-    DEFAULT: state => state
-}
-
 export const firebaseReducer = (state, action) => {
-    const handle = handlers[action.type] || handlers.DEFAULT
-    return handle(state, action)
+
+    switch (action.type) {
+        case 'SHOW_LOADER':
+            return ({ ...state, loading: true });
+        case 'ADD_NOTE':
+            return ({ ...state, notes: [...state.notes, action.payload] });
+        case 'FETCH_NOTES':
+            return ({ ...state, notes: action.payload, loading: false });
+        case 'REMOVE_NOTE':
+            return ({ ...state, notes: state.notes.filter(note => note.id !== action.payload) });
+        default:
+            return state;
+    }
 }   
